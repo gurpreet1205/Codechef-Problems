@@ -1,0 +1,156 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    long long int t,n,l,i,j,k,p,le,ri,up,down,res,c,cc,r,co;
+    cin>>t;
+    while(t--)
+    {
+        cc=0;
+        c=0;
+        le=0;
+        ri=0;
+        up=0;
+        down=0;
+        res=0;
+        cin>>l>>n;
+        char s[l];
+        fflush(stdin);
+        cin>>s;
+        char a[n][n];
+        long long int b[n][n];
+        for(i=0;i<n;i++)
+        {
+            fflush(stdin);
+            for(j=0;j<n;j++)
+            {
+                cin>>a[i][j];
+                b[i][j]=0;
+                if(a[i][j]=='.')
+                    cc++;
+            }
+        }
+        if(cc==n*n)
+        {
+        for(i=0;i<l;i++)
+        {
+            if(s[i]=='U')
+            {
+                up++;
+                down--;
+                if(up>0)
+                {
+                r=up-1;
+                for(j=0;j<n;j++)
+                {
+                    if((a[r][j]=='.')&&(b[r][j]==0))
+                    {
+                        res=res^i;
+                        //cout<<res<<" "<<r<<" "<<j<<endl;
+                        b[r][j]=1;
+                        c++;
+                    }
+                }
+                }
+            }
+            if(s[i]=='D')
+            {
+                down++;
+                up--;
+                if(down>0)
+                {
+                r=n-down;
+                for(j=0;j<n;j++)
+                {
+                    if((a[r][j]=='.')&&(b[r][j]==0))
+                    {
+                        res=res^i;
+                        //cout<<res<<" "<<r<<" "<<j<<endl;
+                        b[r][j]=1;
+                        c++;
+                    }
+                }
+                }
+            }
+            if(s[i]=='L')
+            {
+                le++;
+                ri--;
+                if(le>0)
+                {
+                co=le-1;
+                for(j=0;j<n;j++)
+                {
+                    if((a[j][co]=='.')&&(b[j][co]==0))
+                    {
+                        res=res^i;
+                        //cout<<res<<" "<<j<<" "<<co<<endl;
+                        b[j][co]=1;
+                        c++;
+                    }
+                }
+                }
+            }
+            if(s[i]=='R')
+            {
+                ri++;
+                le--;
+                if(ri>0)
+                {
+                co=n-ri;
+                for(j=0;j<n;j++)
+                {
+                    if((a[j][co]=='.')&&(b[j][co]==0))
+                    {
+                        res=res^i;
+                        //cout<<res<<" "<<j<<" "<<co<<endl;
+                        b[j][co]=1;
+                        c++;
+                    }
+                }
+                }
+            }
+        }
+        //cout<<c<<" "<<cc<<endl;
+        for(i=c;i<cc;i++)
+            res=res^l;
+        cout<<res<<endl;
+        }
+        else
+        {
+            for(i=0;i<n;i++)
+            {
+                for(j=0;j<n;j++)
+                {
+                    if(a[i][j]=='.')
+                    {
+                        r=i;
+                        co=j;
+                    for(k=0;k<l;k++)
+                    {
+                        if(s[k]=='U')
+                            r--;
+                        if(s[k]=='D')
+                            r++;
+                        if(s[k]=='L')
+                            co--;
+                        if(s[k]=='R')
+                            co++;
+                        if((r==-1)||(r==n)||(co==-1)||(co==n)||(a[r][co]=='#'))
+                        {
+                            res=res^k;
+                            //cout<<res<<" "<<i<<" "<<j<<" "<<k<<endl;
+                            c++;
+                            break;
+                        }
+                    }
+                    }
+                }
+            }
+            for(i=c;i<cc;i++)
+                res=res^l;
+            cout<<res<<endl;
+        }
+    }
+    return 0;
+}

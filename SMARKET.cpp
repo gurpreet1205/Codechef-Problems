@@ -1,0 +1,181 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct market
+{
+    long long int brr[100001];
+}mark[100];
+long long int b[100001],d[100001],a[100001];
+void calc(long long int l,long long int r,long long int k)
+{
+    long long int i,j,c=0,x,y,z,p,q=1000;
+    x=(((l-1)/1000)+1);
+    y=((r-1)/1000);
+    for(i=x;i<y;i++)
+        c=c+mark[x].brr[k];
+    //cout<<c<<endl;
+    if(x>y)
+    {
+        for(j=l-1;j<r;)
+            {
+                if((b[j]>=k)&&(j+b[j]-1<r))
+                    c++;
+                if((b[j]>=k)&&(j+b[j]-1>=r))
+                {
+                    if(r-j>=k)
+                        c++;
+                }
+                j=j+b[j];
+            }
+            cout<<c<<endl;
+    }
+    else
+    {
+    for(j=l-1;j<x*1000;)
+    {
+        if((b[j]>=k)&&(j+b[j]-1<x*1000))
+            c++;
+        if((b[j]>=k)&&(j+b[j]-1>=x*1000))
+        {
+            if(x*1000-j>=k)
+                c++;
+        }
+        j=j+b[j];
+    }
+    for(j=y*1000;j<r;)
+    {
+        if((b[j]>=k)&&(j+b[j]-1<r))
+            c++;
+        if((b[j]>=k)&&(j+b[j]-1>=r))
+        {
+            if(r-j>=k)
+                c++;
+        }
+        j=j+b[j];
+    }
+    p=l-1;
+    for(i=x;i<y;i++)
+    {
+        z=i*1000;
+        if(a[z-1]==a[z])
+        {
+            if((min(d[z-1],(z-p))>=k)&&(min(b[z],q)>=k))
+                c--;
+            if((min(d[z-1],z-p)<k)&&(min(b[z],q)<k)&&((min(d[z-1],z-p))+(min(b[z],q))>=k))
+                c++;
+        }
+        p=z;
+    }
+    z=y*1000;
+    if(x==y)
+        q=z-l+1;
+    if(a[z-1]==a[z])
+    {
+        if((min(d[z-1],q)>=k)&&(min(b[z],r-z)>=k))
+            c--;
+       // cout<<c<<endl;
+        if((min(d[z-1],q)<k)&&(min(b[z],r-z)<k)&&((min(d[z-1],q))+(min(b[z],r-z))>=k))
+        {
+           // cout<<"a"<<endl;
+            c++;
+        }
+    }
+    //cout<<min(d[z-1],q)<<" "<<min(b[z],r-z)<<endl<<k<<endl<<(min(d[z-1],q)<k)+(min(b[z],r-z));
+    cout<<c<<endl;
+    }
+}
+int main()
+{
+    long long int t,n,q,i,j,k,l,r,c,x,y,z,p,s=998;
+    cin>>t;
+    while(t--)
+    {
+        cin>>n>>q;
+        long long int arr[n+1];
+        d[0]=1;
+        for(i=0;i<n;i++)
+        {
+            cin>>a[i];
+            //a[i]=999;
+            if(i!=0)
+            {
+                if(a[i-1]==a[i])
+                    d[i]=d[i-1]+1;
+                else
+                    d[i]=1;
+            }
+        }
+        x=n/1000;
+        b[n-1]=1;
+        for(i=n-1;i>0;i--)
+        {
+            if(a[i]==a[i-1])
+                b[i-1]=b[i]+1;
+            else
+                b[i-1]=1;
+        }
+        for(j=0;j<x;j++)
+        {
+            for(i=0;i<1001;i++)
+                arr[i]=0;
+            y=j*1000;
+            z=(j+1)*1000;
+            for(i=y;i<z;)
+        {
+            if(i+b[i]>=z)
+            {
+                arr[z-i]++;
+                break;
+            }
+            arr[b[i]]++;
+            i=i+b[i];
+        }
+        mark[j].brr[1000]=arr[1000];
+        for(i=999;i>0;i--)
+        {
+            mark[j].brr[i]=mark[j].brr[i+1]+arr[i];
+        }
+        //if(a[z-1]==a[z])
+ 
+        }
+        //for(i=0;i<n;i++)
+          //  cout<<d[i]<<" "<<b[i]<<" "<<arr[i+1]<<endl;
+        for(j=0;j<q;j++)
+        {
+            c=0;
+            cin>>l>>r>>k;
+            if(k<1000)
+            calc(l,r,k);
+            else
+            {
+                p=l-1;
+                for(i=l-1+998;i<r;)
+                {
+                    if(a[i]==a[i+1])
+                    {
+                        if((b[i+1]+d[i]>=k)&&(i+b[i+1]<r)&&(i-d[i]>=l-1))
+                            c++;
+                        if((b[i+1]+d[i]>=k)&&(i+b[i+1]>=r)&&(i-d[i]>=l-1))
+                        {
+                            if((r-i-1)+d[i]>=k)
+                            c++;
+                        }
+                        if((b[i+1]+d[i]>=k)&&((i+b[i+1]<r)&&(i-d[i]<l-1)))
+                        {
+                            if(b[i+1]+i-l+1>=k)
+                                c++;
+                        }
+                        if((b[i+1]+d[i]>=k)&&((i+b[i+1]>=r)&&(i-d[i]<l-1)))
+                        {
+                            if(r-l+1>=k)
+                                c++;
+                        }
+                    }
+                    i=i+max(b[i],s);
+ 
+                }
+                cout<<c<<endl;
+            }
+        }
+    }
+    return 0;
+}

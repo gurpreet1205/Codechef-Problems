@@ -1,0 +1,100 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    long long int t,n,k,i,j,c,x,y,z,mid,first,last,ans,x1,z1,q,q1,c1,c2;
+    cin>>t;
+    while(t--)
+    {
+        q=0;
+        q1=0;
+        cin>>n>>k;
+        char s[n+1],s1[n+1],s2[n+1];
+        cin>>s;
+        c=1;
+        x=1;
+        for(i=0;i<n-1;i++)
+        {
+            if(s[i]==s[i+1])
+                c++;
+            else
+            {
+                if(x<c)
+                    x=c;
+                c=1;
+            }
+        }
+        if(x<c)
+            x=c;
+        first=2;
+        last=n;
+        s1[0]='0';
+            s2[0]='1';
+            for(i=1;i<n;i++)
+            {
+                s1[i]=s2[i-1];
+                s2[i]=s1[i-1];
+            }
+            x1=0;
+            for(i=0;i<n;i++)
+            {
+                //cout<<s[i]<<" "<<s1[i]<<endl;
+                if(s[i]==s1[i])
+                    x1++;
+            }
+            //cout<<x<<endl;
+            if(x1>(n-x1))
+                z1=n-x1;
+            else
+                z1=x1;
+            if(z1<=k)
+            cout<<"1"<<endl;
+        else
+        {
+        while(first<=last)
+        {
+        y=0;
+        z=k;
+        mid=(first+last)/2;
+        if(mid>=x)
+        {
+            y=1;
+            ans=mid;
+        }
+        else
+        {
+            c=1;
+            for(i=0;i<n-1;i++)
+            {
+                if(s[i]==s[i+1])
+                    c++;
+                else
+                    c=1;
+                if(c>mid)
+                {
+                    c=1;
+                    z--;
+                    i++;
+                }
+            }
+            if(z>=0)
+            {
+                y=1;
+                ans=mid;
+            }
+        }
+            if(y==1)
+            {
+                last=mid-1;
+            }
+            else
+            {
+                first=mid+1;
+            }
+        //cout<<first<<" "<<last<<" "<<mid<<endl;
+        }
+        cout<<ans<<endl;
+        }
+    }
+    return 0;
+}

@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+	long long int n,i,j,q,k,count,e=0,x,y,z;
+	cin>>n;
+	long long int h[n],a[n]; 
+	for(i=0;i<n;i++)
+	{
+		a[i]=i;
+		cin>>h[i];
+	}
+	for(i=0;i<n;i++)
+	{
+		if(h[i]!=1)
+			break;
+	}
+	if(i==n)
+		e=1;
+	cin>>q;
+	count=n;
+	k=n;
+	for(i=0;i<q;i++)
+	{
+		cin>>x>>y;
+		if(e==1)
+		{
+			z=0;
+			for(j=0;j<k;j++)
+			{
+				if((a[j]&x)!=a[j])
+				{
+					a[z]=a[j];
+					z++;
+				}
+				else
+					count--;
+			}
+			k=z;
+		}
+		else
+		{
+		for(j=0;j<n;j++)
+		{
+			if((j&x)==j)
+			{
+				if(h[j]>0)
+				{
+					h[j]=h[j]-y;
+					if(h[j]<=0)
+						count--;
+				}
+			}
+		}
+		}
+		cout<<count<<"\n";
+	}	
+	return 0;
+}

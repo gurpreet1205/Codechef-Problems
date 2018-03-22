@@ -1,0 +1,78 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+	long long int t,i,j,n,x,sum,y;
+	cin>>t;
+	while(t--)
+	{
+		y=0;
+		cin>>x>>n;
+		long long int a[n]={0};
+		a[x-1]=2;
+		sum=(n*(n+1))/2;
+		sum=sum-x;
+		if(sum%2!=0)
+			cout<<"impossible\n";
+		else
+		{
+			sum=sum/2;
+			for(i=n;i>0;i--)
+			{
+				if(i!=x)
+				{
+					if(sum<=i)
+					{
+						break;
+					}
+					sum=sum-i;
+					a[i-1]=1;
+				}
+			}
+			if((sum>=3)||(x!=sum))
+			{
+				if(x!=sum)
+					a[sum-1]=1;
+				else
+				{
+					a[sum-2]=1;
+					a[0]=1;
+				}
+			}
+			else
+			{
+				if(sum==1)
+				{
+					if(i==1||i==2)
+						y=1;
+					else
+					{
+					a[i]=0;
+					a[i-1]=1;
+					a[1]=1;
+					}
+				}
+				if(sum==2)
+				{
+					if(i==1||i==2||i==3)
+						y=1;
+					else
+					{
+					a[i]=0;
+					a[i-1]=1;
+					a[2]=1;
+					}
+				}
+			}
+			if(y==1)
+				cout<<"impossible\n";
+			else
+			{
+				for(i=0;i<n;i++)
+					cout<<a[i];
+				cout<<"\n";
+			}
+		}
+	}
+	return 0;
+} 

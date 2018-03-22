@@ -1,0 +1,84 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+	long long int t,i,j,k,n,sum,x,m,e,s,ss,y,mm,yy;
+	cin>>t;
+	while(t--)
+	{
+		sum=0;
+		x=0;
+		cin>>n>>k;
+		long long int a[n];
+		for(i=0;i<n;i++)
+			cin>>a[i];
+		for(i=0;i<n;i++)
+		{	
+			x=x+a[i];
+			if(x>=sum)
+			{
+				sum=x;
+				e=i;
+			}
+			if(x<0)
+				x=0;
+		}
+		if(sum==0)
+		{
+			m=a[0];
+			for(i=1;i<n;i++)
+			{
+				if(m<a[i])
+				{
+					m=a[i];
+				}
+			}
+			sum=m;
+		}
+		if(sum<=0||k==1)
+			cout<<sum<<"\n";
+		else
+		{
+			s=a[0];
+			m=a[0];
+			for(i=1;i<n;i++)
+			{
+				s=s+a[i];
+				if(m<s)
+					m=s;
+			}
+			s=0;
+			for(i=0;i<n;i++)
+				s=s+a[i];
+			ss=a[n-1];
+			mm=ss;
+			for(i=n-2;i>=0;i--)
+			{
+				ss=ss+a[i];
+				if(mm<ss)
+					mm=ss;
+			}
+			ss=0;
+			for(i=e+1;i<n;i++)
+				ss=ss+a[i];
+			if(s>0)
+			{
+				y=s*(k-2)+m+ss;
+				if(y>0)
+					sum=sum+y;
+				yy=s*(k-2)+m+mm;
+				sum=max(sum,yy);
+			}
+			else
+			{
+				y=m+ss;
+				if(y>0)
+					sum=sum+y;
+				yy=m+mm;
+				sum=max(sum,yy);
+			}
+			cout<<sum<<"\n";
+		}
+	}
+	return 0;
+} 
