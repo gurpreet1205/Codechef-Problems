@@ -1,8 +1,50 @@
 #include<bits/stdc++.h>
 using namespace std;
+void swap(long long int *a,long long int *b)
+{
+    long long int temp;
+    temp=*a;
+    *a=*b;
+    *b=temp;
+}
+void qsort(long long int *a,long long int n)
+{
+    if((n==0)||(n==1))
+        return;
+    long long int i=0,j=0;
+    while(j<n-1)
+    {
+    if(a[j]<a[n-1])
+    {
+        swap(&a[i],&a[j]);
+        i++;
+    }
+    j++;
+    }
+    swap(&a[i],&a[n-1]);
+    qsort(a,i);
+    qsort(a+i+1,n-i-1);
+}
+//long long int mid;
+/*long long int bsearch(long long int *a,long long int first,long long int last,long long int num)
+{
+    while(first<=last)
+    {
+        mid=(first+last)/2;
+    if(a[mid]<=num&&(first==last||a[mid+1]>num))
+        return mid;
+    else if(a[mid]>num)
+        last=mid-1;
+    else
+        first=mid+1;
+    }
+    return -1;
+}*/
 int main()
 {
-    long long int t,i,j,p,q,r,res,ss1,ss2,h,e,g,d,f;
+    
+    std::ios_base::sync_with_stdio(0);
+    long long int t,i,j,p,q,r,res,ss1,ss2,h;
     cin>>t;
     while(t--)
     {
@@ -27,9 +69,9 @@ int main()
         {
             cin>>c[i];
         }
-        sort(a,a+p);
-        sort(b,b+q);
-        sort(c,c+r);
+        qsort(a,p);
+        qsort(b,q);
+        qsort(c,r);
         j=0;
         for(i=0;i<p;i++)
         {
@@ -68,25 +110,21 @@ int main()
         {
             //pos=bsearch(a,ss1,p-1,b[i]);
             //ss1=pos;
-            e=b1[i];
-            g=s2[i];
-            if(e==-1)
-                g=0;
+            if(b1[i]==-1)
+                s2[i]=0;
             else
-                g=s1[e]+b[i]*(e+1);
-            if(g>=1000000007)
-                g=g%1000000007;
+                s2[i]=s1[b1[i]]+b[i]*(b1[i]+1);
+            if(s2[i]>=1000000007)
+                s2[i]=s2[i]%1000000007;
             //pos=bsearch(c,ss2,r-1,b[i]);
             //ss2=pos;
-            f=b2[i];
-            d=s4[i];
-            if(f==-1)
-                d=0;
+            if(b2[i]==-1)
+                s4[i]=0;
             else
-                d=s3[f]+b[i]*(f+1);
-            if(d>=1000000007)
-                d=d%1000000007;
-            h=g*d;
+                s4[i]=s3[b2[i]]+b[i]*(b2[i]+1);
+            if(s4[i]>=1000000007)
+                s4[i]=s4[i]%1000000007;
+            h=s2[i]*s4[i];
             if(h>=1000000007)
                 h=h%1000000007;
             res=res+h;
@@ -98,4 +136,4 @@ int main()
         cout<<res<<endl;
     }
     return 0;
-}
+} 

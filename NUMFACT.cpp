@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<math.h>
+long long int arr[1000000]={0};
+int main()
+{
+    long long int T,N,sum1,sum2,sum=0,x,i,j,k,c=0,brr[10]={0},y,z;
+    scanf("%lld",&T);
+    while(T--)
+    {
+        z=0;
+        sum1=1;
+        sum2=0;
+        scanf("%lld",&N);
+        long long int a[N];
+        for(i=0;i<N;i++)
+            scanf("%lld",&a[i]);
+        for(i=0;i<N;i++)
+        {
+            x=3;
+            for(j=a[i];j>1;)
+            {
+                while(j%2==0)
+                {
+                    arr[2]++;
+                    j=j/2;
+                }
+                while(j%x==0)
+                {
+                    arr[x]++;
+                    j=j/x;
+                }
+                x=x+2;
+                if(x>=1000)
+                {
+                    brr[z]=j;
+                    arr[j]++;
+                    z++;
+                    break;
+                }
+            }
+        }
+        for(i=0;i<10;i++)
+        {
+            for(j=i+1;j<10;j++)
+            {
+                if(brr[i]==brr[j])
+                    brr[j]=0;
+            }
+        }
+        for(i=2;i<1000;i++)
+        {
+            while(arr[i]>0)
+            {
+                sum=2*sum1-sum2;
+                arr[i]--;
+                if(arr[i]==0)
+                    sum2=0;
+                else
+                    sum2=sum1;
+                sum1=sum;
+            }
+        }
+        for(i=0;i<10;i++)
+        {
+            y=brr[i];
+            while(arr[y]>0)
+            {
+                sum=2*sum1-sum2;
+                arr[y]--;
+                if(arr[y]==0)
+                    sum2=0;
+                else
+                    sum2=sum1;
+                sum1=sum;
+            }
+        }
+        printf("%d\n",sum);
+    }
+    return 0;
+}

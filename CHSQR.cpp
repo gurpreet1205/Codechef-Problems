@@ -1,0 +1,65 @@
+#include<stdio.h>
+int main()
+{
+    int t,i,j,k,c,mid;
+    scanf("%d",&t);
+    while(t--)
+    {
+        c=2;
+        scanf("%d",&k);
+        int a[k][k];
+        mid=(k-1)/2;
+        for(i=0;i<=mid;i++)
+            a[i][mid-i]=1;
+        for(i=1;i<mid;i++)
+            a[k-i-1][mid+i]=1;
+        a[k-1][k-1]=1;
+        for(i=0;i<=mid;i++)
+        {
+            c=2;
+            for(j=mid-i+1;j<k;j++)
+            {
+                a[j][i]=c;
+                c++;
+            }
+            j=0;
+            while(j<mid-i)
+            {
+                a[j][i]=c;
+                c++;
+                j++;
+            }
+        }
+        for(i=mid+1;i<k-1;i++)
+        {
+            c=2;
+            for(j=k+mid-i;j<k;j++)
+            {
+                a[j][i]=c;
+                c++;
+            }
+            j=0;
+            while(j<k+mid-i-1)
+            {
+                a[j][i]=c;
+                c++;
+                j++;
+            }
+        }
+        c=2;
+        for(i=0;i<k-1;i++)
+        {
+            a[i][k-1]=c;
+            c++;
+        }
+        for(i=0;i<k;i++)
+        {
+            for(j=0;j<k;j++)
+            {
+                printf("%d ",a[i][j]);
+            }
+            printf("\n");
+        }
+    }
+    return 0;
+}

@@ -1,0 +1,82 @@
+#include<stdio.h>
+#include<string.h>
+struct res
+{
+    char str[1000];
+};
+int main()
+{
+    struct res s[1000];
+    long long int t,i,j,n,m,c;
+    scanf("%lld",&t);
+    while(t--)
+    {
+        c=0;
+        scanf("%lld %lld",&n,&m);
+        for(i=0;i<n;i++)
+        {
+            fflush(stdin);
+            scanf("%s",s[i].str);
+        }
+        if(m==1)
+        {
+            for(i=0;i<n-1;i++)
+            {
+                if((s[i].str[0]=='W')||((s[i].str[0]=='B')&&(s[i+1].str[0]=='A'))||(s[n-1].str[0]=='W'))
+                {
+                    c=1;
+                    break;
+                }
+            }
+            if((c==0)&&(s[0].str[0]=='W'))
+            {
+            c=1;
+            }
+        }
+        else
+        {
+        for(i=1;i<n;i++)
+        {
+            if((s[i].str[0]=='W')||((s[i].str[0]=='A')&&((s[i-1].str[0]=='B')||(s[i].str[1]=='W')))||(s[i].str[m-1]=='W')||((s[i].str[m-1]=='A')&&((s[i-1].str[m-1]=='B')||(s[i].str[m-2]=='W'))))
+            {
+                c=1;
+               break;
+            }
+        }
+        if(c==0)
+        {
+        for(i=1;i<m-1;i++)
+        {
+            if((s[0].str[i]=='A')&&((s[0].str[i-1]=='W')||(s[0].str[i+1]=='W')))
+            {
+                c=1;
+                break;
+            }
+        }
+        }
+        if(c==0)
+        {
+        for(i=1;i<n;i++)
+        {
+            for(j=1;j<m-1;j++)
+            {
+                if(((s[i].str[j]=='A')&&((s[i].str[j+1]=='W')||(s[i].str[j-1]=='W')||(s[i-1].str[j]=='W')||(s[i-1].str[j]=='B')))||((s[i].str[j]=='W')&&(s[i-1].str[j]=='B')))
+                {
+                    c=1;
+                    break;
+                }
+            }
+            if(c==1)
+                break;
+        }
+        }
+        if((s[0].str[0]=='W')||((s[0].str[0]=='A')&&(s[0].str[1]=='W'))||(s[0].str[m-1]=='W')||((s[0].str[m-1]=='A')&&(s[0].str[m-2]=='W')))
+            c=1;
+        }
+        if(c==1)
+            printf("no\n");
+        else
+            printf("yes\n");
+    }
+    return 0;
+}

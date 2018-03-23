@@ -1,0 +1,39 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+    long long int t,i,j,n,k,p,q;
+    scanf("%lld",&t);
+    while(t--)
+    {
+        k=1;
+        q=1;
+        scanf("%lld",&n);
+        if(n==1)
+            printf("0\n");
+        else
+        {
+        p=pow(10,9);
+        j=pow(2,50);
+        for(i=0;i<20;i++)
+        {
+            q=(q*(j%(p+7)))%(p+7);
+        }
+        while(n>1000)
+        {
+            n=n-1000;
+            k=(k*q)%(p+7);
+        }
+        while(n>51)
+        {
+            n=n-50;
+            k=(k*(j%(p+7)))%(p+7);
+        }
+            i=pow(2,(n-1));
+            k=k*(i%(p+7));
+            k=(k%(p+7))-2;
+        printf("%lld\n",k);
+        }
+    }
+    return 0;
+}
