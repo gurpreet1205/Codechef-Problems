@@ -1,0 +1,92 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+	long long int n,i,j,c,cc,k,sum=0;
+	cin>>n;
+	string s;
+	cin>>s;
+	for(i=0;i<n;i++)
+	{
+		c=0;
+		cc=0;
+		if(s[i]=='V'||s[i]=='K')
+		{
+			long long int a[100];
+			for(j=i+1;j<n;j++)
+			{
+				if(s[j]!='V'&&s[j]!='K')
+					break;
+			}
+			if(s[i]=='V')
+				a[0]=1;
+			else
+				a[0]=0;
+			for(k=i+1;k<j;k++)
+			{
+				if(s[k]=='V')
+					a[k-i]=a[k-i-1]+1;
+				else
+					a[k-i]=a[k-i-1];
+			}
+			if(j==n)
+			{
+				for(k=i;k<j;k++)
+				{
+					if(s[k]=='K')
+					{
+						c=c+a[k-i];
+					}
+				}
+			}
+			else
+			{
+				for(k=i;k<j;k++)
+				{
+					if(s[k]=='K')
+					{
+						c=c+min(a[k-i],a[j-1-i]-a[k-i]+1);
+						//cout<<c<<"\n";
+					}
+				}
+			}
+			if(s[i]=='K')
+				a[0]=1;
+			else
+				a[0]=0;
+			for(k=i+1;k<j;k++)
+			{
+				if(s[k]=='K')
+					a[k-i]=a[k-i-1]+1;
+				else
+					a[k-i]=a[k-i-1];
+			}
+			if(i==0)
+			{
+				for(k=i;k<j;k++)
+				{
+					if(s[k]=='V')
+					{
+						cc=cc+a[j-1-i]-a[k-i];
+					}
+				}
+			}
+			else
+			{
+				for(k=i;k<j;k++)
+				{
+					if(s[k]=='V')
+					{
+						cc=cc+min(a[k-i]+1,a[j-1-i]-a[k-i]);
+						//cout<<c<<"\n";
+					}
+				}
+			}
+			i=j-1;
+		}
+		//cout<<c<<" "<<cc<<"\n";
+		sum=sum+min(c,cc);
+	}
+	cout<<sum<<"\n";
+	return 0;
+}
