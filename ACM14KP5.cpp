@@ -1,4 +1,4 @@
-#include<stdio.h>
+//#include<stdio.h>
 int main()
 {
     long long int t,i,j,k,n,sum,sum1,x=1;
