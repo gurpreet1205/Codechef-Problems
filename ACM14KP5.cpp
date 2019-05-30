@@ -1,4 +1,6 @@
-//#include<stdio.h>
+//ACMICPC
+#include<stdio.h>
+//ACMICPC
 int main()
 {
     long long int t,i,j,k,n,sum,sum1,x=1;
