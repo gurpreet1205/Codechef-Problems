@@ -3,6 +3,7 @@
 //ACMICPC
 int main()
 {
+//ACMICPC
     long long int t,i,j,k,n,sum,sum1,x=1;
     scanf("%lld",&t);
     while(t--)
