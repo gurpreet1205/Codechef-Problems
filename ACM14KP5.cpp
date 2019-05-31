@@ -1,4 +1,4 @@
-///////ACMicpc
+///////ACM
 #include<stdio.h>
 int main()
 {
