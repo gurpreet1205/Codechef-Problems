@@ -1,6 +1,5 @@
-//ACMICPC
+///////ACMICPC
 #include<stdio.h>
-//ACMICPC
 int main()
 {
 //ACM
