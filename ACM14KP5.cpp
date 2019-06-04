@@ -28,5 +28,6 @@ int main()
         printf("%lld\n",sum);
         x++;
     }
+    //practice3
     return 0;
 }
